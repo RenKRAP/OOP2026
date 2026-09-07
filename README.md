@@ -69,6 +69,8 @@ class pibonacci {
 }
 ```
 
+![Alt homework11](./images/OOP_HW2.png)
+
 ### Homework3
 ```java
 public class Golden_Patio {
@@ -87,8 +89,11 @@ public class Golden_Patio {
 }
 ```
 
+![Alt homework11](./images/OOP_HW3.png)
+
 ### Homwork4
-```public class times {
+```java
+public class times {
 
 	public static void main(String[] args) {
 		for(int i=1; i<10; i++) {
@@ -99,4 +104,7 @@ public class Golden_Patio {
 		}
 	}
 
-}```
+}
+```
+
+![Alt homework11](./images/OOP_HW4.png)

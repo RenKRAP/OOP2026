@@ -55,7 +55,7 @@ class triangle {
 
         System.out.print("1 1 ");
 
-        for(int i=0; i<10; i++){
+        for(int i=0; i<18; i++){
             c = a+b;
             System.out.print(c+" ");
             a=b;

@@ -46,12 +46,14 @@ class triangle {
             System.out.println();
         }    
     }
-}```
+}
+```
 
 ![Alt homework11](./images/OOP_HW1.png)
 
 ### Homework2
-```class pibonacci {
+```java
+class pibonacci {
     public static void main(String[] args) {
         int a=1, b=1, c;
 
@@ -64,10 +66,12 @@ class triangle {
             b=c;
         }
     }
-}```
+}
+```
 
 ### Homework3
-```public class Golden_Patio {
+```java
+public class Golden_Patio {
 	public static void main(String[] args) {
 		int a=1, b=1, c;
 		double ratio;
@@ -80,7 +84,8 @@ class triangle {
 			b=c;
 		}
 	}
-}```
+}
+```
 
 ### Homwork4
 ```public class times {

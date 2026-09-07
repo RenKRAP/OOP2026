@@ -46,7 +46,7 @@ class triangle {
             System.out.println();
         }    
     }
-}```
+}
 
 ### Homework2
 ```class pibonacci {
@@ -62,7 +62,7 @@ class triangle {
             b=c;
         }
     }
-}```
+}
 
 ### Homework3
 ```public class Golden_Patio {
@@ -78,7 +78,7 @@ class triangle {
 			b=c;
 		}
 	}
-}```
+}
 
 ### Homwork4
 ```public class times {
@@ -92,4 +92,4 @@ class triangle {
 		}
 	}
 
-}```
+}

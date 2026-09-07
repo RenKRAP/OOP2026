@@ -47,3 +47,49 @@ class triangle {
         }    
     }
 }```
+
+### Homework2
+```class pibonacci {
+    public static void main(String[] args) {
+        int a=1, b=1, c;
+
+        System.out.print("1 1 ");
+
+        for(int i=0; i<10; i++){
+            c = a+b;
+            System.out.print(c+" ");
+            a=b;
+            b=c;
+        }
+    }
+}```
+
+### Homework3
+```public class Golden_Patio {
+	public static void main(String[] args) {
+		int a=1, b=1, c;
+		double ratio;
+		
+		for(int i=0; i<20; i++) {
+			c=a+b;
+			ratio=(double)c/b;
+			System.out.printf("%.12f\n", ratio);
+			a=b;
+			b=c;
+		}
+	}
+}```
+
+### Homwork4
+```public class times {
+
+	public static void main(String[] args) {
+		for(int i=1; i<10; i++) {
+			for(int j=1; j<10; j++) {
+				System.out.print(j + "*" + i + "=" + j*i + " ");
+			}
+			System.out.println();
+		}
+	}
+
+}```

@@ -48,6 +48,8 @@ class triangle {
     }
 }```
 
+<img src="image/OOP_HW1.png">
+
 ### Homework2
 ```class pibonacci {
     public static void main(String[] args) {

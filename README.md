@@ -48,7 +48,7 @@ class triangle {
     }
 }```
 
-![Alt homework11](./images/OOP_HW1.png)
+![Alt homework11](images/OOP_HW1.png)
 
 ### Homework2
 ```class pibonacci {

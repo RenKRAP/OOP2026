@@ -7,7 +7,7 @@
 
 
 <details>
-<summary>Week2 Homework</summary>
+<summary>Week1 Homework</summary>
 	
 ### Homework1
 ```java

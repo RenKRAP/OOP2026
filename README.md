@@ -7,7 +7,7 @@
 
 
 <details>
-	<summury>Week2 Homework</summury>
+<summury>Week2 Homework</summury>
 	
 ### Homework1
 ```java
@@ -124,7 +124,7 @@ public class times {
 </details>
 
 <details>
-	<summury>Week2 Homework</summury>
+<summury>Week2 Homework</summury>
 	
 ### Homework5
 ```java

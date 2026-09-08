@@ -150,20 +150,25 @@ public class Pie {
 public class binomial {
 
 	public static void main(String[] args) {
-		
+		// 배열 선언
 		int[][] binomial = new int[10][10];
 		binomial[0][0] = 1;
 		
+		// 1행 출력
+		for (int i = 0; i < 10; i++) {
+			System.out.printf("%3d ",binomial[0][i]);
+		}
+		System.out.println();
 		
+		// 2행 이후 출력
 		for (int i = 0; i<9; i++) {
-			
 			for (int j = 0; j < 10; j++) {
 				if (j == 0) {
 					binomial[i+1][j] = binomial[i][j];
 				} else {
 					binomial[i+1][j] = binomial[i][j] + binomial[i][j-1];
 				}
-				System.out.printf("%d ", binomial[i+1][j]);
+				System.out.printf("%3d ", binomial[i+1][j]);
 			}
 			
 			System.out.println();
@@ -171,6 +176,7 @@ public class binomial {
 	}
 
 }
+
 ```
 
 ![Alt homework11](./images/OOP_HW6.png)

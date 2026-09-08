@@ -7,7 +7,7 @@
 
 
 <details>
-	<summury>Week2 Homework</summury>
+<summury>Week2 Homework</summury>
 ### Homework1
 ```java
 class triangle {
@@ -120,7 +120,6 @@ public class times {
 ```
 
 ![Alt homework11](./images/OOP_HW4.png)
-
 </details>
 
 <details>

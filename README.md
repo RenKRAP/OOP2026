@@ -7,7 +7,8 @@
 
 
 <details>
-<summury>Week2 Homework</summury>
+	<summury>Week2 Homework</summury>
+	
 ### Homework1
 ```java
 class triangle {
@@ -124,6 +125,7 @@ public class times {
 
 <details>
 	<summury>Week2 Homework</summury>
+	
 ### Homework5
 ```java
 public class Pie {

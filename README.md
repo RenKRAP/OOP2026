@@ -6,7 +6,8 @@
 
 
 
-
+<details>
+	<summury>Week2 Homework</summury>
 ### Homework1
 ```java
 class triangle {
@@ -120,6 +121,10 @@ public class times {
 
 ![Alt homework11](./images/OOP_HW4.png)
 
+</details>
+
+<details>
+	<summury>Week2 Homework</summury>
 ### Homework5
 ```java
 public class Pie {
@@ -259,3 +264,5 @@ public class testsum {
 ```
 
 ![Alt homework11](./images/OOP_HW8.png)
+
+</details>

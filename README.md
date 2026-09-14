@@ -267,3 +267,75 @@ public class testsum {
 ![Alt homework11](./images/OOP_HW8.png)
 
 </details>
+
+
+<details>
+	<summary>
+		Week3 Homework
+	</summary>
+	### Homework10
+
+	```java
+	import java.util.Random;
+import java.util.Scanner;
+
+
+
+public class Dosu {
+
+	public static void main(String[] args) {
+		// 스캐너 선언
+		Scanner sc = new Scanner(System.in);
+		
+		// 변수 선언
+		int array_count, max_value, bin_size, display_scale;
+		int index;
+
+		
+		// 입력 부분
+		System.out.print("랜덤 생성할 표본 수 : ");
+		array_count = sc.nextInt();
+		
+		System.out.print("\n랜덤 생성할 표본의 최댓값 : ");
+		max_value = sc.nextInt();
+		
+		System.out.print("\n구분할 범위 : ");
+		bin_size = sc.nextInt();
+		
+		System.out.print("\n#의 대응비 : ");
+		display_scale = sc.nextInt();
+		
+		while(display_scale <= 0) { // display_scale == 0 인경우 오류발생하므로 방지하기 위한 구문
+			System.out.print("\n#의 대응비 : ");
+			display_scale = sc.nextInt();
+		}
+		
+		// 배열 선언
+		int[] array_data = new int[array_count];
+		int[] array_Dosu = new int[(max_value + bin_size - 1)/bin_size]; // (최댓값+범위값-1)/범위값 = 필요한 배열의 크기를 구하기 위한 올림나눗셈
+		
+		// 입력이 필요한 변수 추가선언
+		int range = ( max_value / bin_size - 1 )/ bin_size; //
+		
+		// 생성된 변수의 구간을 계산, 구간에 추가시키는 반복분
+		for (int i=0; i<array_data.length; i++) {
+			array_data[i] = (int)(Math.random()*max_value); // 0~100까지의 랜덤변수 생성
+			index = array_data[i] / bin_size; // 생성값/범위값의 정수 부분만 따져서 인덱스 결정
+			array_Dosu[index]++; // 해당하는 인덱스 +1
+		}
+		
+		
+		for (int i = 0; i < (max_value + bin_size - 1)/ bin_size; i++) {
+			System.out.printf("%2d ~ %-10d", 0 + bin_size * i, bin_size * (i+1) -1); // 올림나눗셈으로 범위를 지정시킬 수 있도록 함.
+			for (int j = 0; j < array_Dosu[i] / display_scale; j++) { // 대응비에 따라 # 갯수 변경
+				System.out.print("#");
+			}
+			System.out.println();
+		}
+	}
+
+}
+```
+![Alt homework11](./images/OOP_HW10.png)
+
+</details>

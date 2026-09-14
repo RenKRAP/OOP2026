@@ -270,13 +270,12 @@ public class testsum {
 
 
 <details>
-	<summary>
-		Week3 Homework
-	</summary>
-	### Homework10
+<summary>Week3 Homework</summary>
+	
+### Homework10
 
-	```java
-	import java.util.Random;
+```java
+import java.util.Random;
 import java.util.Scanner;
 
 

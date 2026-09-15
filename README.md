@@ -288,7 +288,7 @@ public class Dosu {
 		
 		// 변수 선언
 		int array_count, max_value, bin_size, display_scale;
-		int index;
+		int index, last_max;
 
 		
 		// 입력 부분
@@ -325,7 +325,12 @@ public class Dosu {
 		
 		
 		for (int i = 0; i < (max_value + bin_size - 1)/ bin_size; i++) {
-			System.out.printf("%2d ~ %-10d", 0 + bin_size * i, bin_size * (i+1) -1); // 올림나눗셈으로 범위를 지정시킬 수 있도록 함.
+			if (i == ( (max_value + bin_size - 1) / bin_size) - 1 ){
+				last_max = max_value;
+			} else {
+				last_max = bin_size * (i+1) -1;
+			}
+			System.out.printf("%2d ~ %-10d", 0 + bin_size * i, last_max); // 올림나눗셈으로 범위를 지정시킬 수 있도록 함.
 			for (int j = 0; j < array_Dosu[i] / display_scale; j++) { // 대응비에 따라 # 갯수 변경
 				System.out.print("#");
 			}
@@ -335,6 +340,7 @@ public class Dosu {
 
 }
 ```
-![Alt homework11](./images/OOP_HW10.png)
+![Alt homework11](./images/OOP_HW10_1.png)
+![Alt homework11](./images/OOP_HW10_2.png)
 
 </details>

@@ -3,6 +3,7 @@
 ## [Week1 Homework](#Homework1)
 ## [Week2 Homework](#Homework5)
 ## [Week3 Homework](#Homework10)
+## [Week4 Homework](#Homework13)
 
 
 
@@ -444,6 +445,102 @@ public class mean {
 }
 ```
 
+
 ![Alt homework11](./images/OOP_HW_11.png)
+
+</details>
+
+
+<details>
+<summary>Week4 Homework</summary>
+```java
+import java.util.Scanner;
+
+
+public class Calcul {
+	public static void main(String[] args) {
+		// 변수 선언
+		int i = 1;
+		int reverse = 3;
+		double result = 0;
+		
+		// 스캐너 선언
+		Scanner sc = new Scanner(System.in);
+		
+		// 계산식 입력 받기
+		String inputString = sc.nextLine();
+		String[] inputArray = inputString.split(" ");
+		
+		for (String a : inputArray) {
+			System.out.println(a);
+		}
+		
+		if (reverse < inputArray.length) {
+		i = ((inputArray[1].equals("+") || inputArray[1].equals("-")) && (inputArray[3].equals("#") || (inputArray[3].equals("/")))) ? 3 : 1;
+		}
+		
+		switch(inputArray[i]) {
+		case "+" -> result = F_plus(Double.parseDouble(inputArray[i - 1]), Double.parseDouble(inputArray[i + 1]));
+		case "-" -> result = F_minus(Double.parseDouble(inputArray[i - 1]), Double.parseDouble(inputArray[i + 1]));
+		case "#" -> result = F_multi(Double.parseDouble(inputArray[i - 1]), Double.parseDouble(inputArray[i + 1]));
+		case "/" -> result = F_divi(Double.parseDouble(inputArray[i - 1]), Double.parseDouble(inputArray[i + 1]));
+		}
+		
+		if (reverse < inputArray.length) {
+		if (i == 3) {
+			i = 1;
+			switch(inputArray[i]) {
+			case "+" -> result = F_plus(Double.parseDouble(inputArray[i - 1]), result);
+			case "-" -> result = F_minus(Double.parseDouble(inputArray[i - 1]), result);
+			case "#" -> result = F_multi(Double.parseDouble(inputArray[i - 1]), result);
+			case "/" -> result = F_divi(Double.parseDouble(inputArray[i - 1]), result);
+			}
+		} else {
+			i = 3;
+			switch(inputArray[i]) {
+			case "+" -> result = F_plus(result, Double.parseDouble(inputArray[i + 1]));
+			case "-" -> result = F_minus(result, Double.parseDouble(inputArray[i + 1]));
+			case "#" -> result = F_multi(result, Double.parseDouble(inputArray[i + 1]));
+			case "/" -> result = F_divi(result, Double.parseDouble(inputArray[i + 1]));
+			}
+		}
+		}
+	}
+	
+	public static double F_plus(double a, double b) {
+		double out;
+		out = a + b;
+		
+		System.out.printf("%f\n", out);
+		return out;
+	}
+	
+	public static double F_minus(double a, double b) {
+		double out;
+		out = a - b;
+		
+		System.out.printf("%f\n", out);
+		return out;
+	}
+		
+	public static double F_multi(double a, double b) {
+		double out;
+		out = a * b;
+		
+		System.out.printf("%f\n", out);
+		return out;
+	}
+	
+	public static double F_divi(double a, double b) {
+		double out;
+		out = a / b;
+		
+		System.out.printf("%f\n", out);
+		return out;
+	}
+}
+```
+![Alt homework11](./images/OOP_HW_13.png)
+
 
 </details>

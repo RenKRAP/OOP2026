@@ -453,9 +453,9 @@ public class mean {
 
 <details>
 <summary>Week4 Homework</summary>
+	
 ```java
 import java.util.Scanner;
-
 
 public class Calcul {
 	public static void main(String[] args) {

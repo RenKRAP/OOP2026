@@ -552,7 +552,7 @@ public class Calcul {
 <details>
 <summary>Week5 Homework</summary>
 
-## Homework 14
+## Homework14
 ```java
 import java.util.random.*;
 

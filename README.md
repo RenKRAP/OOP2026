@@ -453,7 +453,8 @@ public class mean {
 
 <details>
 <summary>Week4 Homework</summary>
-	
+
+## Homework 13	
 ```java
 import java.util.Scanner;
 
@@ -542,5 +543,202 @@ public class Calcul {
 ```
 ![Alt homework11](./images/OOP_HW_13.png)
 
+
+</details>
+
+
+
+<details>
+<summary>Week4 Homework</summary>
+
+## Homework 14
+```java
+import java.util.random.*;
+
+
+class Numbers {
+	int num[];
+	
+	Numbers(int num[]) {
+		this.num = num;
+	}
+	
+	
+	double getTotal() {
+		double sum = 0;
+		for (int i = 0; i < num.length; i++) {
+			sum += num[i];
+		}
+		return sum;
+	}
+	
+	
+	// 산술 평균
+	double getArithmaticMean() {
+		return getTotal()/num.length;
+	}
+	
+	
+	// 기하 평균
+	double getGeometricMean() {
+		int array_count = num.length, value_count = 0;
+		double log_total = 0;
+		
+		for(int i = 0; i < array_count; i++) {
+			if(num[i] != 0) {
+				log_total += Math.log(num[i]);
+				value_count += 1;
+			}
+		}
+		return Math.exp(log_total/value_count);
+	}
+	
+	
+	// 조화 평균
+	double getHarmonicMean() {
+		double har_total = 0;
+		int array_count = num.length, value_count  = 0;
+		
+		for(int i = 0; i < array_count; i++) {
+			if(num[i] != 0) {
+				har_total = har_total + (1.0 / num[i]);
+				value_count += 1;
+			}
+		}
+		return value_count / har_total;
+	}
+	
+	
+	// 중간값
+	double getCenter() {
+		int array_count = num.length, change = 0;
+		double center = 0;
+		
+		for (int i = 1; i < array_count; i++) {
+			if (num[i-1] > num[i]) {
+				change = num[i-1];
+				num[i-1] = num[i];
+				num[i] = change;
+				
+				i = 0;
+			}
+		} 
+		if(num.length % 2 == 0) {
+			center = (num[num.length / 2 - 1] + num[(num.length / 2)]) / 2.0;
+		} else {
+			center = num[num.length / 2];
+		}
+		return center;
+	}
+	
+	
+	// 히스토그램 생성을 위한 정렬
+	void sorting() {
+		int change = 0;
+		
+		for (int i = 1; i < num.length; i++) {
+			if (num[i-1] > num[i]) {
+				change = num[i-1];
+				num[i-1] = num[i];
+				num[i] = change;
+				
+				i = 0;
+			}
+		}
+		
+		System.out.printf("100 : ");
+		
+		for (int i = 0; i < num.length; i++) {
+			System.out.printf("%d ", num[i]);
+		}
+		
+		System.out.printf("\n\n");
+	}
+	
+	
+	// 히스토그램 생성 객체
+	void drawHistogram(int start, int end, int binCount, int scale) {
+		// 배열 선언
+		int[] array_data = new int[end];
+		int[] array_Dosu = new int[(end + binCount - 1)/binCount]; // (최댓값+범위값-1)/범위값 = 필요한 배열의 크기를 구하기 위한 올림나눗셈
+		
+		// 변수 선언
+		int range = ( end / binCount - 1 )/ binCount, index = 0, lastMax = 0; //
+		
+		// 생성된 변수의 구간을 계산, 구간에 추가시키는 반복분
+		for (int i=0; i<array_data.length; i++) {
+			array_data[i] = (int)(Math.random()*end); // 0~100까지의 랜덤변수 생성
+			index = array_data[i] / binCount; // 생성값/범위값의 정수 부분만 따져서 인덱스 결정
+			array_Dosu[index]++; // 해당하는 인덱스 +1
+		}
+		
+		
+		for (int i = 0; i < (end + binCount - 1)/ binCount; i++) {
+			if (i == ( (end + binCount - 1) / binCount) - 1 ){
+				lastMax = end;
+			} else {
+				lastMax = binCount * (i+1) -1;
+			}
+			System.out.printf("%8d ~ %-10d", 0 + binCount * i, lastMax); // 올림나눗셈으로 범위를 지정시킬 수 있도록 함.
+			for (int j = 0; j < array_Dosu[i] / scale; j++) { // 대응비에 따라 # 갯수 변경
+				System.out.print("#");
+			}
+			System.out.println();
+		}
+	}
+	
+	
+	//
+	void display() {
+		System.out.printf("%3d :", num.length);		
+		
+		for(int i=0; i<num.length; i++) 
+			System.out.printf("%3d ", num[i]);
+			System.out.println();
+
+	}
+	
+}
+
+public class Dosu_complite {
+	public static void main(String[] args) {
+		// 변수와 배열 선언
+		int size = 100;
+		int data[] = new int [size];
+		
+		
+		// data[]에 랜덤값 100개 생성
+		for (int i = 0; i < size; i++) {
+			data[i] = (int)(Math.random()*100);
+		}
+		
+		// 클래스에서 사용할 매개변수 정의
+		Numbers obj = new Numbers(data);
+		
+		
+		// 실제 실행되는 객체들
+		obj.display();
+		
+		System.out.printf("\nsorting...\n\n");
+		
+		obj.sorting();
+		
+		System.out.printf("Arithmetic Mean : %5.2f\n\n", obj.getArithmaticMean()); 
+	
+		System.out.printf("Geometric Mean : %5.2f\n\n", obj.getGeometricMean());
+		
+		System.out.printf("Geometric Mean : %5.2f\n\n", obj.getHarmonicMean());
+		
+		System.out.printf("Geometric Mean : %5.2f\n\n", obj.getCenter());
+		
+		System.out.println();
+		obj.drawHistogram(0,100,10, 1);
+
+		
+	}
+}
+```
+
+![Alt homework11](./images/OOP_HW_14.png)
 
 </details>

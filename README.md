@@ -554,6 +554,8 @@ public class Calcul {
 
 ## Homework14
 ```java
+package OPP_HW;
+
 import java.util.random.*;
 
 
@@ -635,6 +637,8 @@ class Numbers {
 	
 	// 히스토그램 생성을 위한 정렬
 	void sorting() {
+		System.out.printf("\nsorting...\n");
+		
 		int change = 0;
 		
 		for (int i = 1; i < num.length; i++) {
@@ -720,24 +724,24 @@ public class Dosu_complite {
 		// 실제 실행되는 객체들
 		obj.display();
 		
-		System.out.printf("\nsorting...\n\n");
-		
 		obj.sorting();
 		
 		System.out.printf("Arithmetic Mean : %5.2f\n\n", obj.getArithmaticMean()); 
 	
 		System.out.printf("Geometric Mean : %5.2f\n\n", obj.getGeometricMean());
 		
-		System.out.printf("Geometric Mean : %5.2f\n\n", obj.getHarmonicMean());
+		System.out.printf("Harmonic Mean : %5.2f\n\n", obj.getHarmonicMean());
 		
-		System.out.printf("Geometric Mean : %5.2f\n\n", obj.getCenter());
+		System.out.printf("Center Value : %5.2f\n\n", obj.getCenter());
 		
 		System.out.println();
+		
 		obj.drawHistogram(0,100,10, 1);
 
 		
 	}
 }
+
 ```
 
 ![Alt homework11](./images/OOP_HW_14.png)

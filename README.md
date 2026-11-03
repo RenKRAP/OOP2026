@@ -747,3 +747,478 @@ public class Dosu_complite {
 ![Alt homework11](./images/OOP_HW_14.png)
 
 </details>
+
+
+<details>
+<summary>Week1 Homework</summary>
+	
+### Homework15
+C2048.java
+```java
+import java.util.ArrayList;
+
+public class C2048 {
+	int value[][] = new int[4][4];
+	boolean moved = false;   // 이번 이동에서 판이 실제로 바뀌었는지
+
+	// 애니메이션용 기록
+	ArrayList<int[]> moves = new ArrayList<>();   // {시작행, 시작열, 도착행, 도착열, 값}
+	int spawnR = -1, spawnC = -1;                 // 이번에 새로 생긴 타일 위치
+	int[] destOf = new int[4];                    // slide()에서 각 칸의 도착 인덱스 (-1: 빈 칸)
+
+	C2048() {
+		init();
+	}
+
+
+	void init() {
+		int i = (int) (Math.random()*4);
+		int j = (int) (Math.random()*4);
+		int k = ((int)(Math.random()*2)+1)*2;
+		value[i][j] = k;
+		i = (int) (Math.random()*4);
+		j = (int) (Math.random()*4);
+		k = ((int)(Math.random()*2)+1)*2;
+		value[i][j] = k;
+
+	}
+
+
+	// 이동 후 호출: 판이 바뀌었을 때만 빈 칸 중 한 곳에 2 또는 4 생성
+	void update() {
+		if (!moved) return;
+
+		int empty = 0;
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				if (value[i][j] == 0) empty++;
+		if (empty == 0) return;
+
+		int target = (int) (Math.random() * empty);
+		int k = ((int) (Math.random()*2)+1)*2;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (value[i][j] == 0) {
+					if (target == 0) {
+						value[i][j] = k;
+						spawnR = i;      // 새 타일 위치 기록
+						spawnC = j;
+						return;
+					}
+					target--;
+				}
+			}
+		}
+	}
+
+
+	// 한 줄을 index 0 방향으로 밀면서 합침. destOf[n]에 n번 칸 타일의 도착 위치를 기록
+	int[] slide(int[] line) {
+		int[] result = new int[4];
+		int r = 0;
+		boolean canMerge = false;   // 직전 타일이 아직 합쳐지지 않았는지
+
+		for (int n = 0; n < 4; n++) {
+			destOf[n] = -1;
+			if (line[n] == 0) continue;
+
+			if (r > 0 && canMerge && result[r - 1] == line[n]) {
+				result[r - 1] *= 2;       // 직전 타일과 합치기
+				destOf[n] = r - 1;
+				canMerge = false;         // 한 번 합쳐진 칸은 다시 합치지 않음
+			} else {
+				result[r] = line[n];
+				destOf[n] = r;
+				r++;
+				canMerge = true;
+			}
+		}
+		return result;
+	}
+
+
+
+	void left() {
+		moved = false; moves.clear(); spawnR = -1; spawnC = -1;
+		for (int i = 0; i < 4; i++) {
+			int[] line = new int[4];
+			for (int j = 0; j < 4; j++) line[j] = value[i][j];
+			int[] res = slide(line);
+			for (int j = 0; j < 4; j++) {
+				if (line[j] != 0) moves.add(new int[]{i, j, i, destOf[j], line[j]});
+				if (value[i][j] != res[j]) moved = true;
+				value[i][j] = res[j];
+			}
+		}
+
+		update();
+		display();
+	}
+
+
+
+	void right() {
+		moved = false; moves.clear(); spawnR = -1; spawnC = -1;
+		for (int i = 0; i < 4; i++) {
+			int[] line = new int[4];
+			for (int j = 0; j < 4; j++) line[j] = value[i][3 - j];
+			int[] res = slide(line);
+			for (int j = 0; j < 4; j++) {
+				if (line[j] != 0) moves.add(new int[]{i, 3 - j, i, 3 - destOf[j], line[j]});
+				if (value[i][3 - j] != res[j]) moved = true;
+				value[i][3 - j] = res[j];
+			}
+		}
+
+		update();
+		display();
+	}
+
+
+
+	void up() {
+		moved = false; moves.clear(); spawnR = -1; spawnC = -1;
+		for (int j = 0; j < 4; j++) {
+			int[] line = new int[4];
+			for (int i = 0; i < 4; i++) line[i] = value[i][j];
+			int[] res = slide(line);
+			for (int i = 0; i < 4; i++) {
+				if (line[i] != 0) moves.add(new int[]{i, j, destOf[i], j, line[i]});
+				if (value[i][j] != res[i]) moved = true;
+				value[i][j] = res[i];
+			}
+		}
+
+		update();
+		display();
+	}
+
+
+
+	void down() {
+		moved = false; moves.clear(); spawnR = -1; spawnC = -1;
+		for (int j = 0; j < 4; j++) {
+			int[] line = new int[4];
+			for (int i = 0; i < 4; i++) line[i] = value[3 - i][j];
+			int[] res = slide(line);
+			for (int i = 0; i < 4; i++) {
+				if (line[i] != 0) moves.add(new int[]{3 - i, j, 3 - destOf[i], j, line[i]});
+				if (value[3 - i][j] != res[i]) moved = true;
+				value[3 - i][j] = res[i];
+			}
+		}
+
+		update();
+		display();
+	}
+
+
+
+	void display() {
+		for(int i=0; i<4; i++) {
+			for(int j=0; j<4; j++)
+			System.out.printf("%3d ", value[i][j]);
+			System.out.println();
+		}
+
+		System.out.println();
+	}
+
+
+	boolean isCleared() {
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				if (value[i][j] >= 2048) return true;
+		return false;
+	}
+
+
+	boolean isGameOver() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (value[i][j] == 0) return false;
+				if (j + 1 < 4 && value[i][j] == value[i][j + 1]) return false;
+				if (i + 1 < 4 && value[i][j] == value[i + 1][j]) return false;
+			}
+		}
+		return true;
+	}
+}
+```
+
+C2048Player.java
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+public class C2048Player extends JFrame {
+
+	static final int TILE = 100;
+	static final int GAP = 10;
+	static final int SLIDE_MS = 120;   // 슬라이드 시간
+	static final int POP_MS = 100;     // 새 타일 등장 / 합쳐짐 효과 시간
+
+	C2048 obj = new C2048();
+	boolean finished = false;
+	String message = null;
+	BoardPanel board = new BoardPanel();
+
+	// 애니메이션 상태
+	Timer timer;
+	boolean animating = false;
+	int phase = 0;                 // 0: 슬라이드, 1: 팝 효과
+	double progress = 0;           // 현재 단계의 진행도 (0~1)
+	long startTime;
+	List<int[]> moves = new ArrayList<>();
+	boolean[][] mergedCell = new boolean[4][4];
+	int spawnR = -1, spawnC = -1;
+
+	C2048Player() {
+		setTitle("2048");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+
+		JPanel top = new JPanel(new BorderLayout());
+		top.setBackground(new Color(0xFAF8EF));
+		top.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+
+		JLabel title = new JLabel("2048");
+		title.setFont(new Font("맑은 고딕", Font.BOLD, 36));
+		title.setForeground(new Color(0x776E65));
+		top.add(title, BorderLayout.WEST);
+
+		JButton restartBtn = new JButton("새 게임");
+		restartBtn.setFocusable(false);
+		restartBtn.addActionListener(e -> restart());
+		top.add(restartBtn, BorderLayout.EAST);
+
+		JLabel hint = new JLabel("방향키로 타일을 움직이세요  (R: 재시작, ESC: 종료)", SwingConstants.CENTER);
+		hint.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+		hint.setForeground(new Color(0x776E65));
+		hint.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
+
+		JPanel north = new JPanel(new BorderLayout());
+		north.setBackground(new Color(0xFAF8EF));
+		north.add(top, BorderLayout.NORTH);
+		north.add(hint, BorderLayout.SOUTH);
+
+		add(north, BorderLayout.NORTH);
+		add(board, BorderLayout.CENTER);
+
+		board.setFocusable(true);
+		board.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int code = e.getKeyCode();
+
+				if (code == KeyEvent.VK_ESCAPE) System.exit(0);
+				if (code == KeyEvent.VK_R) { restart(); return; }
+				if (finished || animating) return;   // 애니메이션 중에는 입력 무시
+
+				switch (code) {
+					case KeyEvent.VK_LEFT:  obj.left();  break;
+					case KeyEvent.VK_RIGHT: obj.right(); break;
+					case KeyEvent.VK_UP:    obj.up();    break;
+					case KeyEvent.VK_DOWN:  obj.down();  break;
+					default: return;
+				}
+
+				if (!obj.moved) return;   // 변화가 없으면 애니메이션 없음
+				startAnimation();
+			}
+		});
+
+		pack();
+		setLocationRelativeTo(null);
+	}
+
+	// C2048이 기록한 이동 정보를 복사하고 타이머 시작
+	void startAnimation() {
+		moves = new ArrayList<>(obj.moves);
+		spawnR = obj.spawnR;
+		spawnC = obj.spawnC;
+
+		// 같은 칸에 두 타일이 도착하면 합쳐진 칸
+		int[][] count = new int[4][4];
+		for (int[] m : moves) count[m[2]][m[3]]++;
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				mergedCell[i][j] = count[i][j] >= 2;
+
+		animating = true;
+		phase = 0;
+		progress = 0;
+		startTime = System.currentTimeMillis();
+
+		timer = new Timer(15, e -> tick());
+		timer.start();
+	}
+
+	void tick() {
+		long elapsed = System.currentTimeMillis() - startTime;
+
+		if (phase == 0) {
+			double t = Math.min(1.0, elapsed / (double) SLIDE_MS);
+			progress = 1 - Math.pow(1 - t, 3);   // ease-out: 빠르게 출발해서 천천히 멈춤
+			if (t >= 1.0) {
+				phase = 1;
+				startTime = System.currentTimeMillis();
+			}
+		} else {
+			double t = Math.min(1.0, elapsed / (double) POP_MS);
+			progress = t;
+			if (t >= 1.0) {
+				timer.stop();
+				animating = false;
+				checkState();   // 애니메이션이 끝난 뒤 클리어/게임 오버 판정
+			}
+		}
+		board.repaint();
+	}
+
+	void checkState() {
+		if (obj.isCleared()) {
+			finished = true;
+			message = "CLEAR!\n2048 달성! (R: 새 게임)";
+		} else if (obj.isGameOver()) {
+			finished = true;
+			message = "GAME OVER\n(R: 새 게임)";
+		}
+	}
+
+	void restart() {
+		if (timer != null) timer.stop();
+		animating = false;
+		obj = new C2048();
+		finished = false;
+		message = null;
+		board.requestFocusInWindow();
+		board.repaint();
+	}
+
+	static Color tileColor(int v) {
+		switch (v) {
+			case 0:    return new Color(0xCDC1B4);
+			case 2:    return new Color(0xEEE4DA);
+			case 4:    return new Color(0xEDE0C8);
+			case 8:    return new Color(0xF2B179);
+			case 16:   return new Color(0xF59563);
+			case 32:   return new Color(0xF67C5F);
+			case 64:   return new Color(0xF65E3B);
+			case 128:  return new Color(0xEDCF72);
+			case 256:  return new Color(0xEDCC61);
+			case 512:  return new Color(0xEDC850);
+			case 1024: return new Color(0xEDC53F);
+			case 2048: return new Color(0xEDC22E);
+			default:   return new Color(0x3C3A32);
+		}
+	}
+
+	static double cellPos(double idx) {
+		return GAP + idx * (TILE + GAP);
+	}
+
+	class BoardPanel extends JPanel {
+		BoardPanel() {
+			int size = TILE * 4 + GAP * 5;
+			setPreferredSize(new Dimension(size, size));
+			setBackground(new Color(0xFAF8EF));
+		}
+
+		// 타일 하나 그리기 (x, y는 칸의 좌상단, scale로 크기 조절)
+		void drawTile(Graphics2D g, int v, double x, double y, double scale) {
+			double size = TILE * scale;
+			if (size < 2) return;
+			double off = (TILE - size) / 2;
+
+			g.setColor(tileColor(v));
+			g.fillRoundRect((int) (x + off), (int) (y + off), (int) size, (int) size, 10, 10);
+
+			String s = String.valueOf(v);
+			int base = s.length() <= 2 ? 40 : (s.length() == 3 ? 34 : 28);
+			g.setFont(new Font("맑은 고딕", Font.BOLD, Math.max(1, (int) (base * scale))));
+			g.setColor(v <= 4 ? new Color(0x776E65) : Color.WHITE);
+
+			FontMetrics fm = g.getFontMetrics();
+			int tx = (int) (x + (TILE - fm.stringWidth(s)) / 2.0);
+			int ty = (int) (y + (TILE - fm.getHeight()) / 2.0 + fm.getAscent());
+			g.drawString(s, tx, ty);
+		}
+
+		@Override
+		protected void paintComponent(Graphics g0) {
+			super.paintComponent(g0);
+			Graphics2D g = (Graphics2D) g0;
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+			int size = TILE * 4 + GAP * 5;
+
+			g.setColor(new Color(0xBBADA0));
+			g.fillRoundRect(0, 0, size, size, 15, 15);
+
+			// 빈 칸 배경은 항상 그림
+			g.setColor(tileColor(0));
+			for (int i = 0; i < 4; i++)
+				for (int j = 0; j < 4; j++)
+					g.fillRoundRect((int) cellPos(j), (int) cellPos(i), TILE, TILE, 10, 10);
+
+			if (animating && phase == 0) {
+				// 슬라이드 단계: 이동 전 값으로 시작 칸 → 도착 칸 보간
+				for (int[] m : moves) {
+					double r = m[0] + (m[2] - m[0]) * progress;
+					double c = m[1] + (m[3] - m[1]) * progress;
+					drawTile(g, m[4], cellPos(c), cellPos(r), 1.0);
+				}
+			} else {
+				// 팝 단계 또는 정지 상태: 최종 판을 그림
+				for (int i = 0; i < 4; i++) {
+					for (int j = 0; j < 4; j++) {
+						int v = obj.value[i][j];
+						if (v == 0) continue;
+
+						double scale = 1.0;
+						if (animating) {
+							if (i == spawnR && j == spawnC) scale = progress;                       // 새 타일: 0 → 1
+							else if (mergedCell[i][j]) scale = 1 + 0.2 * Math.sin(Math.PI * progress); // 합쳐진 타일: 살짝 커졌다 복귀
+						}
+						drawTile(g, v, cellPos(j), cellPos(i), scale);
+					}
+				}
+			}
+
+			if (message != null) {
+				g.setColor(new Color(255, 255, 255, 170));
+				g.fillRoundRect(0, 0, size, size, 15, 15);
+
+				String[] lines = message.split("\n");
+				g.setColor(new Color(0x776E65));
+				g.setFont(new Font("맑은 고딕", Font.BOLD, 44));
+				FontMetrics fm = g.getFontMetrics();
+				g.drawString(lines[0], (size - fm.stringWidth(lines[0])) / 2, size / 2 - 5);
+
+				if (lines.length > 1) {
+					g.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+					fm = g.getFontMetrics();
+					g.drawString(lines[1], (size - fm.stringWidth(lines[1])) / 2, size / 2 + 35);
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(() -> {
+			C2048Player p = new C2048Player();
+			p.setVisible(true);
+			p.board.requestFocusInWindow();
+		});
+	}
+}
+```
+
+![Alt homework11](./images/OOP_HW15.png)
+

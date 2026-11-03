@@ -1220,5 +1220,5 @@ public class C2048Player extends JFrame {
 }
 ```
 
-![Alt homework11](./images/OOP_HW15.png)
+![Alt homework11](./images/OOP_HW_15.png)
 

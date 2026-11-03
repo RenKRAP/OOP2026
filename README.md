@@ -750,7 +750,7 @@ public class Dosu_complite {
 
 
 <details>
-<summary>Week1 Homework</summary>
+<summary>Week6 Homework</summary>
 	
 ### Homework15
 C2048.java
